@@ -43,7 +43,7 @@ const withLog = Comp => {
 const LessonWithContent = withLog(withContent(Lesson))
 
 // 装饰器语法 @withLog
-/* @withLog
+@withLog
 @withContent
 class Lesson2 extends React.Component{
     render(){
@@ -53,14 +53,14 @@ class Lesson2 extends React.Component{
             </div>
         )
     }
-} */
+}
 
 export default function HocTest() {
     return (
         <div>
             {[0, 0, 0].map((item, idx) => (
-                <LessonWithContent idx={idx} key={idx} />
-                // <Lesson2 idx={idx} key={idx} />
+                // <LessonWithContent idx={idx} key={idx} />
+                <Lesson2 idx={idx} key={idx} />
             ))}
         </div>
     )

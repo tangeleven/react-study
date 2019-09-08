@@ -6,6 +6,11 @@ import ContextTest from './components/ContextTest'
 import HocTest from './components/HocTest.js'
 import Composition from './components/Composition'
 import HooksTest from './components/HooksTest'
+import FormTest from './components/FormTest'
+import KFormTest from './components/KFormTest'
+
+import {Button} from 'antd'
+
 
 function App(props) {
     return (
@@ -23,7 +28,10 @@ function App(props) {
             {/* 组件复合 */}
             {/* <Composition /> */}
             {/* Hooks */}
-            <HooksTest />
+            {/* <HooksTest /> */}
+            {/* <Button type="primary">Button</Button> */}
+            {/* <FormTest /> */}
+            <KFormTest />
         </div>
     )
 }

@@ -8,7 +8,7 @@ import App from './App'
 // ReactDOM.render(<h1>React真帅</h1>, document.getElementById('root'))
 
 
-ReactDOM.render(<App title="开课吧真不错" />, document.getElementById('root'))
+ReactDOM.render(<App title="Hello React" />, document.getElementById('root'))
 
 
 
