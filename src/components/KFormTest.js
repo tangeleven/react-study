@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Input, Button} from 'antd'
 
+
 // 创建高阶组件
 function KFormCreate(Comp){
     return class extends Component{
@@ -9,9 +10,39 @@ function KFormCreate(Comp){
             this.options = {}
             this.state = { }
         }
-        validateFields(){
+
+        handleChange = e =>{
+            console.log(e.target);
+            let {name, value} = e.target;
+            this.setState({[name]: value}, () => {
+                console.log(this.state)
+                this.validateField(name)
+            })
+        }
+
+        validateField = field => {
+            const rules = this.options[field].rules;
+            const ret = !rules.some(rule => {
+                if (rule.required) {
+                    if (!this.state[field]) {
+                        this.setState({
+                            [field+"Message"]: rule.message
+                        })
+                        return true
+                    }
+                }
+            })
+
+            if (ret) this.setState({[field+"Message"]: ""});
+
+            return ret
+        }
+
+        validateFields = (cb) => {
             
-            console.log('validateFields!!')
+            const ret = Object.keys(this.options).every(field => this.validateField(field))
+            console.log('validateFields!! = ', ret)
+            cb(ret,this.state)
         }
 
         getFieldDec = (field, option) => {
@@ -28,6 +59,9 @@ function KFormCreate(Comp){
                                 onChange: this.handleChange  //输入值变化监听回调
                             })
                         }
+                    {this.state[field+"Message"] && (
+                        <p style={{color: 'red'}}>{this.state[field+"Message"]}</p>
+                    )}
                     </div>
                 )
             }
@@ -49,17 +83,26 @@ function KFormCreate(Comp){
 class KFormTest extends Component {
     onLogin = () => {
         // 校验
-        this.props.validateFields()
+        this.props.validateFields((isValid, data) => {
+            if (isValid) {
+                console.log('提交登录', data)
+            } else {
+                alert('校验失败')
+            }
+        })
     }
     render(){
         const {getFieldDec} = this.props;
         return (
             <div>
                 {getFieldDec("username", {
-                    rules: [{require: true, message: "请输入用户名"}]
+                    rules: [{required: true, message: "请输入用户名"}]
                 })(<Input type="text" />)}
+
+                {getFieldDec("password", {
+                    rules: [{required: true, message: "请输入密码"}]
+                })(<Input type="password" />)}
                 
-                <Input type="password" />
                 <Button onClick={this.onLogin}>登录</Button>
             </div>
         )
