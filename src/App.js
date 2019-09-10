@@ -8,6 +8,7 @@ import Composition from './components/Composition'
 import HooksTest from './components/HooksTest'
 import FormTest from './components/FormTest'
 import KFormTest from './components/KFormTest'
+import ReduxTest from './components/ReduxTest'
 
 import {Button} from 'antd'
 
@@ -31,7 +32,8 @@ function App(props) {
             {/* <HooksTest /> */}
             {/* <Button type="primary">Button</Button> */}
             {/* <FormTest /> */}
-            <KFormTest />
+            {/* <KFormTest /> */}
+            <ReduxTest />
         </div>
     )
 }
