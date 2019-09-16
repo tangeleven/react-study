@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   <!--  <script>
+        let state = {
+            count: 1
+        }
+        let listeners = [];
+
+        function subscribe(listener) {
+            listeners.push(listener);    
+        }
+
+        function changeCount(count) {
+            state.count = count;
+            for (let i=0; i<listeners.length; i++) {
+                const listener = listeners[i];
+                listener();
+            }
+        }
+
+        subscribe(() => {
+            console.log(state.count);
+        })
+
+        changeCount(2)
+        changeCount(3)
+        changeCount(4)
+        
+    </script> -->
+
+    <script>
+        function reducer(state, action) {
+            switch (action.type) {
+                case 'INCREMENT':
+                    return {
+                        ...state,
+                        count: state.count + 1
+                    }
+                case 'DECREMENT':
+                    return {
+                        ...state,
+                        count: state.count - 1
+                    }
+                default:
+                    return state
+            }
+        }
+
+        const createStore = function(reducer, initState) {
+            let state = initState;
+            let listeners = [];
+
+            // 订阅 - 订阅做的事情就是收集状态改变之后要处理的函数
+            function subscribe(listener) {
+                listeners.push(listener)
+            }
+
+            /* function dispatch(newState) {
+                state = newState;
+                // 通知
+                for(let i=0; i<listeners.length; i++) {
+                    const listener = listeners[i];
+                    listener();
+                }
+            } */
+            function dispatch(action) {
+                state = reducer(state, action);
+                // 通知
+                for(let i=0; i<listeners.length; i++) {
+                    const listener = listeners[i];
+                    listener();
+                }
+            }
+
+            function getState() {
+                return state;
+            }
+
+            return {
+                subscribe,
+                dispatch,
+                getState
+            }
+        }
+
+        /* 
+        let initState = {
+            counter: {
+                count: 0
+            },
+            info: {
+                name: '',
+                description: ''
+            }
+        }
+
+        let store = createStore(initState);
+
+        store.subscribe(() => {
+            let state = store.getState();
+            console.log(`${state.info.name}: ${state.info.description}`);
+        })
+
+        store.subscribe(() =>{
+            let state = store.getState();
+            console.log(state.counter.count);
+        })
+
+        store.dispatch({
+            ...store.getState(),
+            info: {
+                name: '前端九部',
+                description: '我们都是前端爱好者！'
+            }
+        })
+
+        store.dispatch({
+            ...store.getState(),
+            counter: {
+                count: 1
+            }
+        }) 
+        */
+
+        // 实现一个自增、自减的计数器
+        let initState = {
+            count: 0
+        }
+        let store = createStore(reducer, initState);
+
+        store.subscribe(() => {
+            let state = store.getState();
+            console.log(state.count);
+        })
+
+        store.dispatch({
+            type: 'INCREMENT'
+        })
+
+        store.dispatch({
+            type: 'DECREMENT'
+        })
+
+        store.dispatch({
+            count: 'abc'
+        })
+    
+    </script>
+</body>
+</html>
