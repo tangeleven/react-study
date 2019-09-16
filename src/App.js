@@ -9,6 +9,8 @@ import HooksTest from './components/HooksTest'
 import FormTest from './components/FormTest'
 import KFormTest from './components/KFormTest'
 
+import {CommentList, BlogPost, CommentListWithSubscription, BlogPostWithSubscription} from './components/Hoc/index'
+
 import {Button} from 'antd'
 
 
@@ -31,7 +33,12 @@ function App(props) {
             {/* <HooksTest /> */}
             {/* <Button type="primary">Button</Button> */}
             {/* <FormTest /> */}
-            <KFormTest />
+            {/* <KFormTest /> */}
+
+            {/* <CommentList /> */}
+            {/* <BlogPost id={1} /> */}
+            <CommentListWithSubscription />
+            <BlogPostWithSubscription />
         </div>
     )
 }
