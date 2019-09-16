@@ -36,7 +36,13 @@
     </script> -->
 
     <script>
+        let initState = {
+            count: 0
+        }
         function counterReducer(state, action) {
+            if (!state) {
+                state = initState;
+            }
             switch (action.type) {
                 case 'INCREMENT':
                     return {
@@ -74,7 +80,7 @@
 
             return function combination(state = {}, action) {
                 const nextState = {} 
-                debugger
+                // debugger
                 for (let i=0; i<reducerKeys.length; i++) {
                     const key = reducerKeys[i];
                     const reducer = reducers[key];
@@ -82,10 +88,10 @@
                     const nextStateForKey = reducer(previousStateForKey, action)
 
                     nextState[key] = nextStateForKey
-                    debugger
+                    // debugger
                 }
                 console.log(nextState)
-                debugger
+                // debugger
                 return nextState;
             }
         }
@@ -112,6 +118,8 @@
                 return state;
             }
 
+            dispatch({ type: Symbol() })
+
             return {
                 subscribe,
                 dispatch,
@@ -123,7 +131,7 @@
 
     
         // 实现一个自增、自减的计数器
-        let initState = {
+        /* let initState = {
             counter: {
                 count: 0
             },
@@ -131,14 +139,17 @@
                 name: '前端第九部',
                 description: '我们都是前端爱好者'
             }
-        }
+        } */
+        
         const reducer = combineReducers({
             counter: counterReducer,
             info: InfoReducer
         })
-        let store = createStore(reducer, initState);
+        let store = createStore(reducer);
+        console.dir(store.getState());
 
-        store.subscribe(() => {
+
+        /* store.subscribe(() => {
             let state = store.getState();
             console.log(state.counter.count, state.info.name, state.info.description);
         })
@@ -149,7 +160,7 @@
 
         store.dispatch({
             type: 'DECREMENT'
-        })
+        }) */
 
         /* store.dispatch({
             count: 'abc'
