@@ -11,6 +11,8 @@ import KFormTest from './components/KFormTest'
 
 import {CommentList, BlogPost, CommentListWithSubscription, BlogPostWithSubscription} from './components/Hoc/index'
 
+import ReduxTest from './components/ReduxTest'
+
 import {Button} from 'antd'
 
 
@@ -37,8 +39,10 @@ function App(props) {
 
             {/* <CommentList /> */}
             {/* <BlogPost id={1} /> */}
-            <CommentListWithSubscription />
-            <BlogPostWithSubscription />
+            {/* <CommentListWithSubscription /> */}
+            {/* <BlogPostWithSubscription /> */}
+
+            <ReduxTest />
         </div>
     )
 }
