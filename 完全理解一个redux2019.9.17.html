@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        
+        function createStore(plan, initState) {
+            let state = initState;
+            let listeners = [];
+
+            function getState() {
+                return state
+            }
+            function subscribe(listener) {
+                listeners.push(listener);
+            }
+            function dispatch(action) {
+                // state = newState;
+                state = plan(state, action)
+                
+                for (let i=0; i<listeners.length; i++) {
+                    let listener = listeners[i];
+                    listener();
+                }
+            }
+
+            return {
+                getState,
+                subscribe,
+                dispatch
+            }
+        }
+
+        function plan(state, action) {
+            switch (action.type) {
+                case 'INCREMENT':
+                    return {
+                        ...state,
+                        count: state.count + 1
+                    }
+                case 'DECREMENT':
+                    return {
+                        ...state,
+                        count: state.count - 1
+                    }
+                default:
+                    return state
+            }
+        }
+        let initState = {
+            count: 0
+        }
+
+        let store = createStore(plan, initState);
+
+        store.subscribe(function() {
+            console.log(store.getState().count)
+        })
+
+        store.dispatch({
+            type: 'INCREMENT'
+        })
+        store.dispatch({
+            type: 'INCREMENT'
+        })
+        store.dispatch({
+            count: 'abc'
+        })
+
+    </script>
+</body>
+</html>

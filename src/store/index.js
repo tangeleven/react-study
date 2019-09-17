@@ -1,19 +1,14 @@
-import {createStore} from 'redux';
+import {createStore, applyMiddleware, combineReducers} from 'redux';
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+import {counterReducer} from './counter'
 
-const counterReducer = function (state=0, action) {
-    const num = action.payload || 1;
-    switch(action.type) {
-        case 'add':
-            return state + num;
-        case 'minus':
-            return state - num;
-        default:
-            return state;
 
-    }
-}
-
-const store = createStore(counterReducer);
+const store = createStore(
+    // 这里给 counterReducer 起一个名字 counter ，这一步相当于在做模块化
+    combineReducers({counter: counterReducer}), 
+    applyMiddleware(logger, thunk)
+);
 
 export default store;
 
