@@ -12,8 +12,10 @@ import KFormTest from './components/KFormTest'
 import {CommentList, BlogPost, CommentListWithSubscription, BlogPostWithSubscription} from './components/Hoc/index'
 
 import ReduxTest from './components/ReduxTest'
+import MyReduxTest from './components/MyReduxTest'
 
 import {Button} from 'antd'
+import RouterTest from './components/RouterTest';
 
 
 function App(props) {
@@ -42,7 +44,10 @@ function App(props) {
             {/* <CommentListWithSubscription /> */}
             {/* <BlogPostWithSubscription /> */}
 
-            <ReduxTest />
+            {/* <ReduxTest /> */}
+            {/* <MyReduxTest /> */}
+
+            <RouterTest />
         </div>
     )
 }
