@@ -33,7 +33,7 @@ function App(props) {
             {/* <Button type="primary">Button</Button> */}
             {/* <FormTest /> */}
             {/* <KFormTest /> */}
-            <ReduxTest />
+            <ReduxTest title="redux測試" />
         </div>
     )
 }
