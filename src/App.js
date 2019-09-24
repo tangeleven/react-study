@@ -19,6 +19,7 @@ import RouterTest from './components/RouterTest';
 
 
 function App(props) {
+    console.log(props)
     return (
         <div>
             <h1>{props.title}</h1>
